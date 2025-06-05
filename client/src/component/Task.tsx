@@ -1,12 +1,35 @@
+import type { Task } from "../store/ColumeStore";
+
 export interface TaskProp {
+  id: string;
   title: string;
   assignedUser: string;
   priority: "HIGH" | "MEDIUM" | "LOW";
+  col?: string;
 }
 
-function Task({ assignedUser, priority, title }: TaskProp) {
+function Task({ col, assignedUser, priority, title,id }: TaskProp) {
+
+  if(!col) return
+
+  const handleDrag = (
+    event: React.DragEvent,
+    fromColumn: string,
+    item: Task
+  ) => {
+    event.dataTransfer.setData("item", JSON.stringify(item));
+
+    event.dataTransfer.setData("fromColumn", fromColumn);
+  };
+
   return (
-    <div className="  rounded-md bg-[#22272B] hover:bg-gray-700  p-3" draggable>
+    <div
+      className="  rounded-md bg-[#22272B] hover:bg-gray-700  p-3"
+      draggable
+      onDragStart={(e) =>
+        handleDrag(e, col, { title, priority, assignedUser, id })
+      }
+    >
       <div className=" flex gap-2 flex-col">
         <h2 className=" text-primary font-semibold w-full truncate">{title}</h2>
         <div className=" flex gap-2 items-start">
