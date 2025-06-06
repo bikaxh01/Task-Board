@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Column from "./Column";
 import { useBoardStore, type Columns } from "../store/ColumeStore";
+import { sendRequest } from "../config";
+import { useParams } from "react-router";
 
 function V2() {
   const [coll, setColumns] = useState<Columns>({
@@ -85,9 +87,27 @@ function V2() {
       },
     ],
   });
+  const { boardId } = useParams();
+  
 
   const updateColumns = useBoardStore((state) => state.updateColumns);
   const columns = useBoardStore((state) => state.columns);
+
+  useEffect(() => {
+    async function getColumns() {
+      try {
+        const res = await sendRequest({
+          method: "get",
+          isAuth: true,
+          url: `get-board?boardId=${boardId}`,
+        });
+        console.log("🚀 ~ getColumns ~ res:", res.data.column);
+      } catch (error) {
+        console.log("🚀 ~ getColumns ~ error:", error);
+      }
+    }
+    getColumns();
+  }, []);
 
   useEffect(() => {
     updateColumns(coll);

@@ -79,7 +79,7 @@ export async function signIn(req: Request, res: Response) {
     }
     const payload = {
       id: user.id,
-      email:user.email,
+      email: user.email,
     };
     const token = jwt.sign(payload, jwtSecret as string);
     res.cookie("authToken", token);
@@ -97,7 +97,9 @@ export async function signIn(req: Request, res: Response) {
 
 export async function createBoard(req: Request, res: Response) {
   try {
-    const { title, description, userId } = req.body;
+    const { title, description } = req.body;
+    //@ts-ignore
+    const userId = req.userId;
 
     const board = await prisma.board.create({
       data: {
@@ -127,15 +129,52 @@ export async function createBoard(req: Request, res: Response) {
 
 export async function getAllBoards(req: Request, res: Response) {
   try {
-    const { userId } = req.body;
+    //@ts-ignore
+    const userId = req.userId;
 
     const boards = await prisma.board.findMany({
       where: {
         adminId: userId,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return sendResponse(res, STATUS.SUCCESS, "Successfully created", boards);
+  } catch (error) {
+    console.log("🚀 ~ getAllBoards ~ error:", error);
+    return sendResponse(
+      res,
+      STATUS.INTERNAL_ERROR,
+      "something went wrong while getting all boards",
+      []
+    );
+  }
+}
+
+export async function getBoard(req: Request, res: Response) {
+  try {
+    //@ts-ignore
+    //const userId = req.userId;
+    const { boardId } = req.query;
+    if (!boardId || typeof boardId !== "string") {
+      return sendResponse(res, STATUS.INVALID_DATA, "Invalid Req ", []);
+    }
+    const board = await prisma.board.findUnique({
+      where: {
+        //  adminId: userId,
+        id: boardId,
+      },
+      include: {
+        column: {
+          include: {
+            task: true,
+          },
+        },
+      },
+    });
+    return sendResponse(res, STATUS.SUCCESS, "Successfully fetched", board);
   } catch (error) {
     console.log("🚀 ~ getAllBoards ~ error:", error);
     return sendResponse(

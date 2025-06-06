@@ -13,7 +13,6 @@ export async function validateUser(
 ) {
   try {
     const token = req.cookies.authToken;
-    
 
     const jwtSecret = process.env.JWT_SECRET;
 
@@ -23,7 +22,6 @@ export async function validateUser(
 
     // decode token
     const { email, id }: any = jwt.verify(token, jwtSecret as string);
-  
 
     if (!email || !id) {
       return sendResponse(res, STATUS.UNAUTHORIZED, "Unauthorized");
@@ -39,17 +37,15 @@ export async function validateUser(
     if (!verifyUser) {
       return sendResponse(res, STATUS.UNAUTHORIZED, "user doesn't exists");
     }
-    req.body.userId = verifyUser.id;
+    //@ts-ignore
+    req.userId = verifyUser.id;
 
     // next
     next();
   } catch (error) {
-    console.log("🚀 ~ error:", error)
+    console.log("🚀 ~ error:", error);
     res.clearCookie("authToken");
 
     return sendResponse(res, STATUS.UNAUTHORIZED, "Unauthorized user");
   }
 }
-
-
-

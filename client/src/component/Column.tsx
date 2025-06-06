@@ -1,6 +1,7 @@
 import DropComponent from "./DropComponent";
-import { useBoardStore } from "../store/ColumeStore";
-import Task, { type TaskProp } from "./Task";
+
+import { type TaskProp } from "./Task";
+import Task from "./Task";
 
 interface ColumnProp {
   title: string;
@@ -8,8 +9,6 @@ interface ColumnProp {
 }
 
 function Column(props: ColumnProp) {
-  const col = useBoardStore((state) => state.columns);
-
   return (
     <div className="bg-black flex   flex-col  rounded-md min-h-56 min-w-[18rem] py-3 px-2  ">
       <h1 className="text-primary font-bold">{props.title}</h1>

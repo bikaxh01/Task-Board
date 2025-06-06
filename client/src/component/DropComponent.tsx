@@ -3,7 +3,7 @@ import { useBoardStore, type Task } from "../store/ColumeStore";
 
 function DropComponent({ col, index }: { col: string; index: number }) {
   const [active, setActive] = useState(false);
-  console.log("🚀 ~ DropComponent ~ active:", active);
+ 
 
   const columns = useBoardStore((state) => state.columns);
   const updateColumns = useBoardStore((state) => state.updateColumns);
