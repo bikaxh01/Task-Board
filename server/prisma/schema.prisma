@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id        String   @id @default(uuid())
+  fullName  String
+  email     String @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  adminOf board[] @relation("boardAdmin")
+
+  memberships membership[]
+  task        task[]
+}
+
+model board {
+  id String @id @default(uuid())
+
+  title       String
+  description String?
+  adminId     String
+  admin       user    @relation("boardAdmin", fields: [adminId], references: [id])
+
+  memberships membership[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  column      column[]
+}
+
+model membership {
+  id        String   @id @default(uuid())
+  userId    String
+  boardId   String
+  user      user     @relation(fields: [userId], references: [id])
+  board     board    @relation(fields: [boardId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, boardId])
+}
+
+model column {
+  id        String   @id @default(uuid())
+  boardId   String
+  title     String?
+  board     board    @relation(fields: [boardId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model task {
+  id          String   @id @default(uuid())
+  title       String
+  position    Int
+  label       LABEL
+  description String?
+  assignedTo  String?
+  user        user?    @relation(references: [id], fields: [assignedTo])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum LABEL {
+  HIGH
+  MEDIUM
+  LOW
+}
