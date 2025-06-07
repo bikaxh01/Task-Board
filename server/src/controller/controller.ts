@@ -186,3 +186,57 @@ export async function getBoard(req: Request, res: Response) {
     );
   }
 }
+
+export async function createTask(req: Request, res: Response) {
+  try {
+    //@ts-ignore
+    const userId = req.userId;
+    const { colName, taskTitle, boardId } = req.body;
+
+    const findCol = await prisma.column.findFirst({
+      where: {
+        boardId,
+        title: colName,
+      },
+    });
+
+    if (!findCol) {
+      return sendResponse(res, STATUS.NOT_FOUND, "Invalid Col");
+    }
+
+    const addCol = await prisma.task.create({
+      data: {
+        label: "LOW",
+        position: 0,
+        title: taskTitle,
+        columnId: findCol?.id,
+      },
+    });
+
+    return sendResponse(res, STATUS.CREATED, "created Success", addCol);
+  } catch (error) {
+    return sendResponse(res, STATUS.INTERNAL_ERROR, "Internal server error");
+  }
+}
+
+export async function createColumn(req: Request, res: Response) {
+  try {
+    ///@ts-ignore
+    const userId = req.userId;
+
+    const { boardId, title } = req.body;
+
+    const col = await prisma.column.create({
+      data: {
+        title: title,
+        boardId,
+      },
+      include: {
+        task: true,
+      },
+    });
+    return sendResponse(res, STATUS.CREATED, "Created Column", col);
+  } catch (error) {
+    return sendResponse(res, STATUS.INTERNAL_ERROR, "Internal server error");
+  }
+}

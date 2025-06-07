@@ -3,3 +3,27 @@
 @theme {
   --color-primary: oklch(0.7491 0.0212 250.44);
 }
+
+.scrollbar-custom {
+  scrollbar-width: thin; /* For Firefox */
+}
+
+/* WebKit-based browsers (Chrome, Safari, Edge) */
+.scrollbar-custom::-webkit-scrollbar {
+  width: 0.5rem; /* Tailwind's w-2 */
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+  border-radius: 9999px;
+  background-color: #000; /* Set track to black */
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background-color: #222; /* Slightly lighter black for thumb, or use #000 for pure black */
+}
+
+/* For Firefox */
+.scrollbar-custom {
+  scrollbar-color: #222 #000; /* thumb color, track color */
+}

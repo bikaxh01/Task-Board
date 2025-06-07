@@ -3,7 +3,6 @@ import { useBoardStore, type Task } from "../store/ColumeStore";
 
 function DropComponent({ col, index }: { col: string; index: number }) {
   const [active, setActive] = useState(false);
- 
 
   const columns = useBoardStore((state) => state.columns);
   const updateColumns = useBoardStore((state) => state.updateColumns);
@@ -19,7 +18,7 @@ function DropComponent({ col, index }: { col: string; index: number }) {
 
     const fromColumn = event.dataTransfer.getData("fromColumn");
 
-   // if (fromColumn == toColumn) return;
+    // if (fromColumn == toColumn) return;
 
     const fromData = columns[fromColumn].filter((it) => it.id !== item.id);
     const toData = [...columns[toColumn]];
@@ -58,7 +57,13 @@ function DropComponent({ col, index }: { col: string; index: number }) {
         </div>
       ) : (
         <div className="flex items-center justify-center min-h-2">
-          <div className="border border-dashed border-indigo-500/25 w-full"></div>
+          <div
+            className="border border-dashed border-indigo-500/25 w-full"
+            onDrop={(e) => {
+              setActive(false);
+              handleDrop(e, col, index);
+            }}
+          ></div>
         </div>
       )}
     </div>

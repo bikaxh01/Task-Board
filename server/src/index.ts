@@ -3,6 +3,8 @@ import { config } from "dotenv";
 import cors from "cors";
 import {
   createBoard,
+  createColumn,
+  createTask,
   getAllBoards,
   getBoard,
   signIn,
@@ -26,5 +28,7 @@ app.post("/sign-in", signIn);
 app.post("/create-board", validateUser, createBoard);
 app.get("/get-boards", validateUser, getAllBoards);
 app.get("/get-board", getBoard);
+app.post("/create-task", validateUser, createTask);
+app.post("/create-col", validateUser, createColumn);
 
 app.listen(3000, () => console.log(`Running at 3000`));
