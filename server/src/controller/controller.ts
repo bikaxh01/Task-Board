@@ -83,7 +83,7 @@ export async function signIn(req: Request, res: Response) {
       email: user.email,
     };
     const token = jwt.sign(payload, jwtSecret as string);
-    res.cookie("authToken", token, { sameSite: "none" });
+    res.cookie("authToken", token, { sameSite: "none",secure:true });
     return sendResponse(res, STATUS.SUCCESS, "successfully signed In");
   } catch (error) {
     return sendResponse(
