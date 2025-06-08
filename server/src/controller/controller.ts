@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs";
 import { config } from "dotenv";
 import { sendResponse, STATUS } from "../utils/status";
 import jwt from "jsonwebtoken";
+import cookieParser from "cookie-parser";
 config();
 
 const passwordSalt = bcrypt.genSaltSync(10);
@@ -82,8 +83,7 @@ export async function signIn(req: Request, res: Response) {
       email: user.email,
     };
     const token = jwt.sign(payload, jwtSecret as string);
-    res.cookie("authToken", token);
-    return sendResponse(res, STATUS.SUCCESS, "successfully signed In");
+    return sendResponse(res.cookie("authToken", token), STATUS.SUCCESS, "successfully signed In");
   } catch (error) {
     return sendResponse(
       res,
