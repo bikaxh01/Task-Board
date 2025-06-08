@@ -73,7 +73,6 @@ export async function signIn(req: Request, res: Response) {
     }
 
     const verifyPassword = await bcrypt.compare(password, user.password);
-  
 
     if (!verifyPassword) {
       return sendResponse(res, STATUS.UNAUTHORIZED, "Incorrect password");
@@ -83,7 +82,7 @@ export async function signIn(req: Request, res: Response) {
       email: user.email,
     };
     const token = jwt.sign(payload, jwtSecret as string);
-    res.cookie("authToken", token);
+    res.cookie("authToken", token, { sameSite: true });
     return sendResponse(res, STATUS.SUCCESS, "successfully signed In");
   } catch (error) {
     return sendResponse(
