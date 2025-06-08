@@ -11,11 +11,11 @@ function App() {
       <Routes>
         <Route index element={<Dashboard />} />
 
-        <Route path="board">
+        <Route path="/board">
           <Route path=":boardId" element={<Board />} />
         </Route>
 
-        <Route path="sign-in" element={<SignIn />} />
+        <Route path="/sign-in" element={<SignIn />} />
       </Routes>
     </>
   );
