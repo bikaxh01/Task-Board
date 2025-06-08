@@ -1,12 +1,15 @@
 import React, { useState } from "react";
-import { sendRequest } from "../../config";
+import { sendRequest } from "../../../config";
 import { toast } from "sonner";
+import {  useNavigate } from "react-router";
 
 function CreateBoard() {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -19,6 +22,7 @@ function CreateBoard() {
         body: { title: title, description: description },
       });
 
+      navigate(0);
       toast.success(res.message);
     } catch (error: any) {
       toast.error(error.message);

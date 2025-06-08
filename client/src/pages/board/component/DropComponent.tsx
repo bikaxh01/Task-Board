@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { useBoardStore, type Task } from "../store/ColumeStore";
+import { useBoardStore} from "../../../store/ColumeStore";
+import type { Task } from "../../../types";
 
 function DropComponent({ col, index }: { col: string; index: number }) {
   const [active, setActive] = useState(false);

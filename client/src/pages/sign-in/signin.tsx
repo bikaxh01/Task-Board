@@ -1,30 +1,30 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
-import axios from "axios";
+
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { sendRequest } from "../../config";
 
 function SignIn() {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("bikyyadv");
-  const [password, setPassword] = useState("123456");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const res = await axios.post(
-        "http://localhost:3000/sign-in",
-        { email, password },
-        { withCredentials: true }
-      );
-      console.log("🚀 ~ handleSubmit ~ res:", res);
-      if (res.data.success) {
-        toast.success(res.data.message);
-        navigate("/monitors");
-      }
+      const res = await sendRequest({
+        method: "post",
+        isAuth: true,
+        url: "sign-in",
+        body: { email, password },
+      });
+
+      toast.success(res.message);
+      navigate("/dashboard");
     } catch (error: any) {
-      toast.error(error.response.data.message);
+      toast.error(error.message);
     }
   };
 

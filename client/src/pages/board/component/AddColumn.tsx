@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useBoardStore } from "../store/ColumeStore";
-import { sendRequest } from "../config";
+import { useBoardStore } from "../../../store/ColumeStore";
+import { sendRequest } from "../../../config";
 import { useParams } from "react-router";
 
 function AddColumn() {

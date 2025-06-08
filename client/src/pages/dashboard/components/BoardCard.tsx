@@ -1,6 +1,6 @@
-import React from "react";
+
 import { useNavigate } from "react-router";
-import { formatDate } from "../../config";
+import { formatDate } from "../../../config";
 
 export interface Board {
   id: string;

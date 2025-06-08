@@ -1,13 +1,11 @@
-import AddTask from "./addTask";
+import type { ColumnProp } from "../../../types";
+import AddTask from "./AddTask";
 import DropComponent from "./DropComponent";
-
-import { type TaskProp } from "./Task";
 import Task from "./Task";
 
-interface ColumnProp {
-  title: string;
-  tasks: TaskProp[];
-}
+
+
+
 
 function Column(props: ColumnProp) {
   return (
@@ -27,6 +25,7 @@ function Column(props: ColumnProp) {
                 assignedUser={task.assignedUser}
                 label={task.label}
                 title={task.title}
+                description={task.description}
               />
               <DropComponent col={props.title} index={i} />
             </div>

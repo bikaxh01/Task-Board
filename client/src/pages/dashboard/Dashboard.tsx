@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
-import BoardCard, { type Board } from "./components/boardCard";
-import CreateBoard from "./components/createBoard";
-import { sendRequest } from "../config";
+import BoardCard, { type Board } from "./components/BoardCard";
+
+import { sendRequest } from "../../config";
+import CreateBoard from "./components/CreateBoard";
+import { Loader } from "lucide-react";
 
 function Dashboard() {
   const [boards, setBoards] = useState<Board[] | []>([]);
-
+  const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     async function getBoards() {
       try {
+        setLoading(true); // Start loading
         const res = await sendRequest({
           method: "get",
           isAuth: true,
@@ -19,6 +22,8 @@ function Dashboard() {
         setBoards(res.data);
       } catch (error) {
         console.log("🚀 ~ getBoards ~ error:", error);
+      } finally {
+        setLoading(false); // Stop loading
       }
     }
     getBoards();
@@ -41,8 +46,14 @@ function Dashboard() {
           </div>
         </div>
         <div className=" w-full gap-2 flex flex-col">
-          {boards.length == 0 ? (
-            <div>No Boards create new</div>
+          {loading ? (
+            <div>
+              <Loader className=" animate-spin" />
+            </div>
+          ) : boards.length == 0 ? (
+            <div className=" flex w-full items-center justify-center">
+              <h1>No Boards create new</h1>
+            </div>
           ) : (
             boards
               .filter((b) =>

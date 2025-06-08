@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
 import SignIn from "./pages/sign-in/signin.js";
-import V2 from "./component/v2";
-import Dashboard from "./pages/dashboard";
+import Dashboard from "./pages/dashboard/Dashboard";
+import Board from "./pages/board/Board.js";
 
 function App() {
   return (
@@ -10,9 +10,9 @@ function App() {
         <Route path="dashboard" element={<Dashboard />} />
 
         <Route path="board">
-          <Route path=":boardId" element={<V2 />} />
+          <Route path=":boardId" element={<Board />} />
         </Route>
-        <Route path="sign-up" element={<V2 />} />
+       
         <Route path="sign-in" element={<SignIn />} />
       </Routes>
     </>

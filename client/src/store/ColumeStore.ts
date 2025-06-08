@@ -1,16 +1,5 @@
 import { create } from "zustand";
-
-export interface Task {
-  title: string;
-  id: string;
-  description?: string;
-  assignedUser: string;
-  label: "HIGH" | "MEDIUM" | "LOW";
-}
-
-export interface Columns {
-  [key: string]: Task[];
-}
+import type { Columns } from "../types";
 
 interface BoardStore {
   columns: Columns | null;
@@ -21,6 +10,8 @@ export const useBoardStore = create<BoardStore>((set) => ({
   columns: null,
 
   updateColumns: (updatedColumns: Columns) => {
+   
+
     return set({ columns: updatedColumns });
   },
 }));

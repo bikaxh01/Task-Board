@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useBoardStore, type Task } from "../store/ColumeStore";
-import { sendRequest } from "../config";
+import { useBoardStore } from "../../../store/ColumeStore";
+import { sendRequest } from "../../../config";
 import { useParams } from "react-router";
+import type { AddTaskProp, Task } from "../../../types";
 
-interface AddTaskProp {
-  colName: string;
-}
 
 function AddTask({ colName }: AddTaskProp) {
   const [activeInput, setActiveInput] = useState(false);

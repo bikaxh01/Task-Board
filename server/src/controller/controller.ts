@@ -73,6 +73,7 @@ export async function signIn(req: Request, res: Response) {
     }
 
     const verifyPassword = await bcrypt.compare(password, user.password);
+  
 
     if (!verifyPassword) {
       return sendResponse(res, STATUS.UNAUTHORIZED, "Incorrect password");
