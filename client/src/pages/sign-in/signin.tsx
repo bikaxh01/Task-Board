@@ -20,6 +20,7 @@ function SignIn() {
         url: "sign-in",
         body: { email, password },
       });
+      console.log("🚀 ~ handleSubmit ~ res:", res)
 
       toast.success(res.message);
       navigate("/");

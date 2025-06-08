@@ -10,7 +10,6 @@ export const useBoardStore = create<BoardStore>((set) => ({
   columns: null,
 
   updateColumns: (updatedColumns: Columns) => {
-   
 
     return set({ columns: updatedColumns });
   },
