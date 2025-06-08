@@ -6,15 +6,18 @@ import Task from "./Task";
 import { useState } from "react"; // Add this import
 import { useBoardStore } from "../../../store/ColumeStore";
 import { toast } from "sonner";
+import { useUser } from "../../../hook/getUser";
 
 function Column(props: ColumnProp) {
   const [open, setOpen] = useState(false); // Dialog state
+  const [user] = useUser();
 
   const columns = useBoardStore((state) => state.columns);
   const updateCol = useBoardStore((state) => state.updateColumns);
 
   if (!columns) return;
 
+  // Delete Column Logic
   const handleDelete = () => {
     delete columns[props.title];
     const finalCols = { ...columns };
@@ -62,8 +65,10 @@ function Column(props: ColumnProp) {
               <Task
                 col={props.title}
                 id={task.id}
-                assignedUser={task.assignedUser}
+                createdBy={user?.fullName.split(" ")[0]}
+                assignedTo={task.assignedTo}
                 label={task.label}
+                dueDate={task.dueDate}
                 title={task.title}
                 description={task.description}
               />

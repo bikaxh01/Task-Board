@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import type { TaskDetailProp } from "../../../types";
 import { useBoardStore } from "../../../store/ColumeStore";
 import MarkdownEditor from "./MarkdownEditor";
+import { useUser } from "../../../hook/getUser";
 
 function TaskDetail({
   setActiveDetail,
@@ -11,34 +12,47 @@ function TaskDetail({
   id,
   label: initialLabel,
   title: initialTitle,
+  dueDate: initialDueDate,
   description: initialDescription,
 }: TaskDetailProp) {
   const [title, setTitle] = useState(initialTitle);
   const [description, setDescription] = useState(initialDescription || "");
   const [label, setLabel] = useState(initialLabel);
-
+  const [assignUser, setAssignUser] = useState("");
   const [loading, setLoading] = useState(false);
+  const [dueDate, setDueDate] = useState(initialDueDate);
 
   const columns = useBoardStore((state) => state.columns);
   const updateCols = useBoardStore((state) => state.updateColumns);
 
   if (!columns) return;
+
+  // handling card content update
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       setLoading(true);
 
-      // can call update api to update Task detail with ?taskId=taskId
-
       const updatedColumns = {
         ...columns,
         [col]: columns[col].map((task) =>
-          task.id === id ? { ...task, title, description, label } : task
+          task.id === id
+            ? {
+                ...task,
+                title,
+                description,
+                label,
+                assignedTo: assignUser,
+                dueDate,
+              }
+            : task
         ),
       };
+      console.log("🚀 ~ handleSubmit ~ updatedColumns:", updatedColumns);
 
       updateCols(updatedColumns);
+      console.log("🚀 ~ columns:", columns);
       toast.success("Updated Successfully");
     } catch (error: any) {
       toast.error(error.message);
@@ -47,17 +61,16 @@ function TaskDetail({
       setLoading(false);
     }
   };
-  
+
   const deleteTask = (e: React.MouseEvent) => {
     e.preventDefault();
     const finalColTask = columns[col].filter((t) => id !== t.id);
-    console.log("🚀 ~ deleteTask ~ finalColTask:", finalColTask)
-    
+
     const finalCols = { ...columns, [col]: finalColTask };
-    console.log("🚀 ~ deleteTask ~ finalCols:", finalCols)
+    console.log("🚀 ~ deleteTask ~ finalCols:", finalCols);
     updateCols(finalCols);
     toast.success("Deleted Successfully");
-    setActiveDetail(false)
+    setActiveDetail(false);
   };
 
   return (
@@ -87,19 +100,57 @@ function TaskDetail({
               placeholder="Enter Your Board Title"
             />
           </div>
+          <div className="flex gap-4">
+            <div className="w-1/2">
+              <label className="block text-white font-semibold mb-1">
+                Assign Task
+              </label>
+              <select
+                value={assignUser}
+                onChange={(e) => setAssignUser(e.target.value)}
+                className="w-full px-3 py-2 rounded bg-gray-800 text-white focus:outline-primary"
+                required
+              >
+                <option value="value" selected>
+                  Select User
+                </option>
+                <option value="@bikash">Bikash Mishra</option>
+                <option value="@john">John Doe</option>
+                <option value="@alex">Alex</option>
+                <option value="@jain">Jain martin</option>
+                <option value="@sam">Sam martin</option>
+              </select>
+            </div>
+            <div className="w-1/2">
+              <label className="block text-white font-semibold mb-1">
+                Label
+              </label>
+              <select
+                value={label}
+                //@ts-expect-error no err
+                onChange={(e) => setLabel(e.target.value)}
+                className="w-full px-3 py-2 rounded bg-gray-800 text-white focus:outline-primary"
+                required
+              >
+                <option value="HIGH">High</option>
+                <option value="MEDIUM">Medium</option>
+                <option value="LOW">Low</option>
+              </select>
+            </div>
+          </div>
           <div>
-            <label className="block text-white font-semibold mb-1">Label</label>
-            <select
-              value={label}
-              //@ts-expect-error no err
-              onChange={(e) => setLabel(e.target.value)}
+            <label className="block text-white font-semibold mb-1">
+              Due Date
+            </label>
+            <input
+              type="date"
+              value={dueDate}
+              onChange={(e) => {
+                e.preventDefault();
+                setDueDate(e.target.value);
+              }}
               className="w-full px-3 py-2 rounded bg-gray-800 text-white focus:outline-primary"
-              required
-            >
-              <option value="HIGH">High</option>
-              <option value="MEDIUM">Medium</option>
-              <option value="LOW">Low</option>
-            </select>
+            />
           </div>
           <div>
             <label className="block font-semibold text-white text-sm mb-1">

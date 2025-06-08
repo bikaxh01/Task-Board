@@ -1,19 +1,24 @@
 import type { TaskProp, Task } from "../../../types";
 import { useState } from "react";
 import TaskDetail from "./TaskDetail";
+import { useUser } from "../../../hook/getUser";
 
 function TaskComponent({
   col,
-  assignedUser,
+  assignedTo,
   label,
+  dueDate,
   title,
   id,
   description,
+  createdBy
 }: TaskProp) {
   const [activeDetail, setActiveDetail] = useState(false);
-
+  
   if (!col) return;
+  
 
+  // Drag card logic
   const handleDrag = (
     event: React.DragEvent,
     fromColumn: string,
@@ -31,7 +36,7 @@ function TaskComponent({
         draggable
         onClick={() => setActiveDetail(true)}
         onDragStart={(e) =>
-          handleDrag(e, col, { title, label, assignedUser, id })
+          handleDrag(e, col, { title, label, assignedTo, id })
         }
       >
         <div className=" flex gap-2 flex-col">
@@ -52,19 +57,31 @@ function TaskComponent({
                 {label.toLocaleLowerCase()}
               </span>
             )}
-
-            <span className="px-1 rounded-sm truncate  text-[10px] text-gray-300 hover:text-gray-100 flex items-center justify-center">
-              {assignedUser || "@bikash"}
-            </span>
+            {assignedTo && (
+              <span className="px-1 rounded-sm truncate  text-[10px] text-amber-300 hover:text-gray-100 flex items-center justify-center">
+                assigned to: {assignedTo || "@bikash"}
+              </span>
+            )}
+            {createdBy && (
+              <span className="px-1 rounded-sm truncate  text-[10px] text-orange-400 hover:text-gray-100 flex items-center justify-center">
+                created by: {createdBy}
+              </span>
+            )}
+            {dueDate && (
+              <span className="px-1 rounded-sm truncate  text-[10px] text-gray-300 hover:text-gray-100 flex items-center justify-center">
+                Due Date: {dueDate}
+              </span>
+            )}
           </div>
         </div>
       </div>
       {activeDetail && (
         <TaskDetail
           setActiveDetail={setActiveDetail}
-          assignedUser={assignedUser}
+          assignedTo={assignedTo}
           id={id}
           label={label}
+          dueDate={dueDate}
           title={title}
           description={description}
           col={col}

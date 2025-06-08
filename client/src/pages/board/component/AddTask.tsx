@@ -20,6 +20,8 @@ function AddTask({ colName }: AddTaskProp) {
     }
   }, [activeInput]);
 
+
+  // create new Card 
   const createCardHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       setLoading(true);

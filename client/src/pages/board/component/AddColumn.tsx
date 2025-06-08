@@ -18,6 +18,7 @@ function AddColumn() {
     }
   }, [activeInput]);
 
+  // Add new Column
   const createCol = async (e: React.FormEvent<HTMLFormElement>) => {
     try {
       setLoading(true);

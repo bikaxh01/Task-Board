@@ -1,54 +1,36 @@
-# React + TypeScript + Vite
+## ✅ Completed Tasks
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### 🗂 Board View Page
+- [x] Ability to create a new board.
+- [x] Display all available boards in a table with necessary information.
+- [x] Clicking on a board navigates to its detail view.
 
-## Expanding the ESLint configuration
+### 📋 Board Detail Page
+- [x] Create columns (e.g., “To Do”, “In Progress”, “Done”).
+- [x] Display columns horizontally.
+- [x] Create cards (tasks) inside each column.
+- [x] Display cards stacked vertically within columns.
+- [x] Assign tasks to team members.
+- [x] Add priority to tasks (high, medium, low).
+- [x] Move cards from one column to another.
+- [x] Reorder cards within the same column.
+- [x] Edit and delete columns.
+- [x] Edit and delete cards.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 📝 Task Details (Card Content)
+- [x] Title
+- [x] Description
+- [x] Name of the user who created it
+- [x] Priority tag (high, medium, low)
+- [x] Due date
+- [x] Name of the assigned user
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## 🌟 Bonus Features (Optional)
+- [x] Drag-and-drop support for reordering/moving tasks
+- [x] Markdown support in task descriptions
+- [x] Search functionality for boards or tasks (For board only)
+- [x] User authentication  (sign-In only )
+- [x] Implement a backend (e.g., Node.js, Express) to persist data

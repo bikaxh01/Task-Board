@@ -7,6 +7,7 @@ import {
   createTask,
   getAllBoards,
   getBoard,
+  getUser,
   signIn,
   signUp,
 } from "./controller/controller";
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 
 app.post("/sign-up", signUp);
 app.post("/sign-in", signIn);
+app.get("/get-user", validateUser,getUser);
 app.post("/create-board", validateUser, createBoard);
 app.get("/get-boards", validateUser, getAllBoards);
 app.get("/get-board", getBoard);

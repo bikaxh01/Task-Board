@@ -83,7 +83,8 @@ export async function signIn(req: Request, res: Response) {
       email: user.email,
     };
     const token = jwt.sign(payload, jwtSecret as string);
-    res.cookie("authToken", token, { sameSite: "none",secure:true });
+    res.cookie("authToken", token, { sameSite: "none", secure: true });
+
     return sendResponse(res, STATUS.SUCCESS, "successfully signed In");
   } catch (error) {
     return sendResponse(
@@ -93,6 +94,32 @@ export async function signIn(req: Request, res: Response) {
       [],
       "error occurred while signing in"
     );
+  }
+}
+
+export async function getUser(req: Request, res: Response) {
+  try {
+    //@ts-ignore
+    const userId = req.userId;
+
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },select:{
+        id:true,
+        email:true,
+        fullName:true,
+        createdAt:true
+      }
+    });
+ return sendResponse(
+      res,
+      STATUS.SUCCESS,
+      "Got user",
+      user
+    );
+  } catch (error) {
+    return sendResponse(res, STATUS.INTERNAL_ERROR, "something went wrong ");
   }
 }
 

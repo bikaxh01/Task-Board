@@ -1,6 +1,6 @@
 .w-md-editor {
   border-radius: 8px;
-  
+  background-color: white;
   --md-editor-background-color: transparent;
 }
 
@@ -8,7 +8,7 @@ body .w-md-editor-text-pre > code,
 body .w-md-editor-text-input {
   font-size: 14px !important;
   line-height: 24px !important;
-  color: #f8f8f8 !important;
+  color: black !important;
 }
 
 .w-md-editor-editor {

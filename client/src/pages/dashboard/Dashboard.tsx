@@ -4,12 +4,14 @@ import BoardCard, { type Board } from "./components/BoardCard";
 import { sendRequest } from "../../config";
 import CreateBoard from "./components/CreateBoard";
 import { Loader } from "lucide-react";
+import { useUser } from "../../hook/getUser";
 
 function Dashboard() {
   const [boards, setBoards] = useState<Board[] | []>([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
+   const [user] = useUser()
+   
   useEffect(() => {
     async function getBoards() {
       try {

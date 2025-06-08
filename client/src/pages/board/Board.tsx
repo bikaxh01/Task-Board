@@ -1,4 +1,4 @@
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useBoardStore } from "../../store/ColumeStore";
 import { sendRequest } from "../../config";
@@ -14,6 +14,7 @@ function Board() {
   const columns = useBoardStore((state) => state.columns);
   const [loading, setLoading] = useState(false);
 
+  // get all columns from BE and push to store
   useEffect(() => {
     async function getColumns() {
       try {

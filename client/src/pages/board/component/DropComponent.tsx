@@ -8,6 +8,8 @@ function DropComponent({ col, index }: { col: string; index: number }) {
   const columns = useBoardStore((state) => state.columns);
   const updateColumns = useBoardStore((state) => state.updateColumns);
 
+
+  // handling Card Drop
   const handleDrop = (
     event: React.DragEvent,
     toColumn: string,
@@ -18,6 +20,7 @@ function DropComponent({ col, index }: { col: string; index: number }) {
     const item: Task = JSON.parse(event.dataTransfer.getData("item"));
 
     const fromColumn = event.dataTransfer.getData("fromColumn");
+
 
     if (fromColumn == toColumn) {
       const toData = [...columns[toColumn]];
