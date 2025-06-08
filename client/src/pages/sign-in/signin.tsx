@@ -22,7 +22,7 @@ function SignIn() {
       });
 
       toast.success(res.message);
-      navigate("/dashboard");
+      navigate("/");
     } catch (error: any) {
       toast.error(error.message);
     }

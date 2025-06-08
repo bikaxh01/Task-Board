@@ -52,11 +52,10 @@ function TaskComponent({
                 {label.toLocaleLowerCase()}
               </span>
             )}
-            {assignedUser && (
-              <span className="px-1 rounded-sm truncate  text-[10px] text-gray-300 hover:text-gray-100 flex items-center justify-center">
-                {assignedUser}
-              </span>
-            )}
+
+            <span className="px-1 rounded-sm truncate  text-[10px] text-gray-300 hover:text-gray-100 flex items-center justify-center">
+              {assignedUser || "@bikash"}
+            </span>
           </div>
         </div>
       </div>

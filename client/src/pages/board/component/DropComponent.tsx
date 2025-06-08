@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useBoardStore} from "../../../store/ColumeStore";
+import { useBoardStore } from "../../../store/ColumeStore";
 import type { Task } from "../../../types";
 
 function DropComponent({ col, index }: { col: string; index: number }) {
@@ -19,7 +19,22 @@ function DropComponent({ col, index }: { col: string; index: number }) {
 
     const fromColumn = event.dataTransfer.getData("fromColumn");
 
-    // if (fromColumn == toColumn) return;
+    if (fromColumn == toColumn) {
+      const toData = [...columns[toColumn]];
+
+      const fromIndex = toData.findIndex((it) => it.id === item.id);
+
+      toData.splice(fromIndex, 1);
+
+      const insertIndex = fromIndex < index ? index - 1 : index;
+      toData.splice(insertIndex, 0, item);
+      const updatedColumns = {
+        ...columns,
+        [toColumn]: toData,
+      };
+      updateColumns(updatedColumns);
+      return;
+    }
 
     const fromData = columns[fromColumn].filter((it) => it.id !== item.id);
     const toData = [...columns[toColumn]];

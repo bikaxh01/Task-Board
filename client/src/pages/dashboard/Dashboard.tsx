@@ -13,7 +13,7 @@ function Dashboard() {
   useEffect(() => {
     async function getBoards() {
       try {
-        setLoading(true); // Start loading
+        setLoading(true);
         const res = await sendRequest({
           method: "get",
           isAuth: true,
@@ -23,7 +23,7 @@ function Dashboard() {
       } catch (error) {
         console.log("🚀 ~ getBoards ~ error:", error);
       } finally {
-        setLoading(false); // Stop loading
+        setLoading(false);
       }
     }
     getBoards();
@@ -47,7 +47,7 @@ function Dashboard() {
         </div>
         <div className=" w-full gap-2 flex flex-col">
           {loading ? (
-            <div>
+            <div className=" w-full flex items-center justify-center">
               <Loader className=" animate-spin" />
             </div>
           ) : boards.length == 0 ? (
