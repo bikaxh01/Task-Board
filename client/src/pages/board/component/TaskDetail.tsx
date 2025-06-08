@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import type { TaskDetailProp } from "../../../types";
 import { useBoardStore } from "../../../store/ColumeStore";
 import MarkdownEditor from "./MarkdownEditor";
-import { useUser } from "../../../hook/getUser";
+
 
 function TaskDetail({
   setActiveDetail,

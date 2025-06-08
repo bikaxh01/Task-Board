@@ -1,7 +1,7 @@
 import type { TaskProp, Task } from "../../../types";
 import { useState } from "react";
 import TaskDetail from "./TaskDetail";
-import { useUser } from "../../../hook/getUser";
+
 
 function TaskComponent({
   col,
