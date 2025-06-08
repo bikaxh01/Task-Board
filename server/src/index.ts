@@ -17,7 +17,12 @@ const app = express();
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ credentials: true, origin: ["http://localhost:5173","https://taskboard-sigma.vercel.app/"] }));
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:5173", "https://taskboard-sigma.vercel.app"],
+  })
+);
 
 app.get("/", (req, res) => {
   res.json("OK");
