@@ -2,7 +2,6 @@ import type { TaskProp, Task } from "../../../types";
 import { useState } from "react";
 import TaskDetail from "./TaskDetail";
 
-
 function TaskComponent({
   col,
   assignedTo,
@@ -11,12 +10,11 @@ function TaskComponent({
   title,
   id,
   description,
-  createdBy
+  createdBy,
 }: TaskProp) {
   const [activeDetail, setActiveDetail] = useState(false);
-  
+
   if (!col) return;
-  
 
   // Drag card logic
   const handleDrag = (
@@ -36,7 +34,14 @@ function TaskComponent({
         draggable
         onClick={() => setActiveDetail(true)}
         onDragStart={(e) =>
-          handleDrag(e, col, { title, label, assignedTo, id })
+          handleDrag(e, col, {
+            title,
+            label,
+            assignedTo,
+            id,
+            dueDate,
+            description,
+          })
         }
       >
         <div className=" flex gap-2 flex-col">

@@ -11,7 +11,7 @@ function Dashboard() {
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
    const [user] = useUser()
-   console.log("🚀 ~ Dashboard ~ user:", user)
+   
    
   useEffect(() => {
     async function getBoards() {

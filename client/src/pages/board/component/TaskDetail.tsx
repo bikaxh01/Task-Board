@@ -16,14 +16,14 @@ function TaskDetail({
   description: initialDescription,
   assignedTo
 }: TaskDetailProp) {
-  console.log("🚀 ~ assignedTo:", assignedTo)
+ 
   const [title, setTitle] = useState(initialTitle);
   const [description, setDescription] = useState(initialDescription || "");
   const [label, setLabel] = useState(initialLabel);
   const [assignUser, setAssignUser] = useState(assignedTo);
   const [loading, setLoading] = useState(false);
   const [dueDate, setDueDate] = useState(initialDueDate);
-  console.log("🚀 ~ dueDate:", initialDueDate)
+  
 
   const columns = useBoardStore((state) => state.columns);
   const updateCols = useBoardStore((state) => state.updateColumns);
@@ -52,10 +52,10 @@ function TaskDetail({
             : task
         ),
       };
-      console.log("🚀 ~ handleSubmit ~ updatedColumns:", updatedColumns);
+    
 
       updateCols(updatedColumns);
-      console.log("🚀 ~ columns:", columns);
+  
       toast.success("Updated Successfully");
     } catch (error: any) {
       toast.error(error.message);
@@ -70,7 +70,7 @@ function TaskDetail({
     const finalColTask = columns[col].filter((t) => id !== t.id);
 
     const finalCols = { ...columns, [col]: finalColTask };
-    console.log("🚀 ~ deleteTask ~ finalCols:", finalCols);
+    
     updateCols(finalCols);
     toast.success("Deleted Successfully");
     setActiveDetail(false);

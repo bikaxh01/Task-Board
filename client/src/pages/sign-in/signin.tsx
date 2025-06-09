@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
 import { toast } from "sonner";
@@ -20,7 +20,6 @@ function SignIn() {
         url: "sign-in",
         body: { email, password },
       });
-      console.log("🚀 ~ handleSubmit ~ res:", res)
 
       toast.success(res.message);
       navigate("/");

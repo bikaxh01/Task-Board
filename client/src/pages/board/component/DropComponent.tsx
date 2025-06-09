@@ -18,6 +18,7 @@ function DropComponent({ col, index }: { col: string; index: number }) {
     if (!columns) return;
     event.preventDefault();
     const item: Task = JSON.parse(event.dataTransfer.getData("item"));
+    //console.log("🚀 ~ DropComponent ~ item:", item)
 
     const fromColumn = event.dataTransfer.getData("fromColumn");
 
@@ -38,10 +39,14 @@ function DropComponent({ col, index }: { col: string; index: number }) {
       updateColumns(updatedColumns);
       return;
     }
-
+    
     const fromData = columns[fromColumn].filter((it) => it.id !== item.id);
     const toData = [...columns[toColumn]];
+    console.log("🚀 ~ DropComponent ~ toData:", toData)
+  
+    
     toData.splice(index, 0, item);
+
     const updatedColumns = {
       ...columns,
       [fromColumn]: fromData,
