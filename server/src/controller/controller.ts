@@ -92,7 +92,7 @@ export async function signIn(req: Request, res: Response) {
       STATUS.INTERNAL_ERROR,
       "something went wrong",
       [],
-      "error occurred while signing in"
+   
     );
   }
 }

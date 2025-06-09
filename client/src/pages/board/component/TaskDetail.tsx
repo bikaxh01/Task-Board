@@ -145,6 +145,7 @@ function TaskDetail({
             <input
               type="date"
               value={dueDate}
+              min={new Date().toISOString().split('T')[0]}
               onChange={(e) => {
                 e.preventDefault();
                 setDueDate(e.target.value);
