@@ -43,6 +43,21 @@
 
 ---
 
+## 🎥 Demo
+
+<div align="center">
+  <iframe src="https://www.loom.com/embed/f7d64b2cc3d94552af135f524b222d72?sid=71518d93-d703-48e1-863b-61a7b84053bc"
+    frameborder="0"
+    webkitallowfullscreen
+    mozallowfullscreen
+    allowfullscreen
+    width="600"
+    height="340">
+  </iframe>
+</div>
+
+---
+
 # 🛠 Local Setup
 
 ## Client
