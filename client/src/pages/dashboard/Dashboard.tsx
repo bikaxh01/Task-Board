@@ -10,7 +10,7 @@ function Dashboard() {
   const [boards, setBoards] = useState<Board[] | []>([]);
   const [loading, setLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-   const [user] = useUser()
+   const [_] = useUser()
    
    
   useEffect(() => {
