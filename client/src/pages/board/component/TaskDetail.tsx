@@ -14,13 +14,16 @@ function TaskDetail({
   title: initialTitle,
   dueDate: initialDueDate,
   description: initialDescription,
+  assignedTo
 }: TaskDetailProp) {
+  console.log("🚀 ~ assignedTo:", assignedTo)
   const [title, setTitle] = useState(initialTitle);
   const [description, setDescription] = useState(initialDescription || "");
   const [label, setLabel] = useState(initialLabel);
-  const [assignUser, setAssignUser] = useState("");
+  const [assignUser, setAssignUser] = useState(assignedTo);
   const [loading, setLoading] = useState(false);
   const [dueDate, setDueDate] = useState(initialDueDate);
+  console.log("🚀 ~ dueDate:", initialDueDate)
 
   const columns = useBoardStore((state) => state.columns);
   const updateCols = useBoardStore((state) => state.updateColumns);
